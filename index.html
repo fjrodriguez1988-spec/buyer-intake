@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buyer Intake | El Dorado Home Group</title>
+<style>
+  :root{--navy:#0C2C42;--gold:#C9973A;--cream:#FAF6EF;--ink:#1c2630;--muted:#5d6b78;--line:#e2dccf;--err:#b3261e;--card:#fff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  header{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  header img{height:64px;width:auto}
+  .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  header h1{margin:2px 0 0;font-size:18px;font-weight:600}
+  .lang{display:flex;gap:6px}
+  .lang button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer}
+  .lang button.on{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:700}
+  main{max-width:640px;margin:0 auto;padding:18px 16px 40px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+  h2{margin:0 0 6px;font-size:22px;color:var(--navy)}
+  p.sub{margin:0 0 14px;color:var(--muted)}
+  .bar{height:6px;background:var(--line);border-radius:999px;margin:0 0 16px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--gold);width:0;transition:width .25s}
+  .stepname{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .f{margin:0 0 16px}
+  label.q,.q{display:block;font-weight:600;margin:0 0 6px}
+  .req{color:var(--err)}
+  .hint{font-weight:400;color:var(--muted);font-size:14px;display:block}
+  input[type=text],input[type=tel],input[type=email],input[type=date],textarea{width:100%;font:inherit;padding:12px;border:1px solid #cfc8b8;border-radius:10px;background:#fff}
+  textarea{min-height:90px;resize:vertical}
+  input:focus,textarea:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{flex:1 1 auto;min-width:120px}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt span{display:block;text-align:center;padding:12px 10px;border:1px solid #cfc8b8;border-radius:10px;background:#fff;cursor:pointer;min-height:48px}
+  .opt input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff}
+  .opt input:focus-visible + span{outline:2px solid var(--gold)}
+  .opts.stack .opt{flex-basis:100%}
+  .opts.stack .opt span{text-align:left}
+  .sub-f{margin-top:12px;padding-left:12px;border-left:3px solid var(--gold)}
+  .hide{display:none!important}
+  .err{color:var(--err);font-size:14px;margin-top:4px}
+  .invalid input[type=text],.invalid input[type=tel],.invalid input[type=email],.invalid textarea{border-color:var(--err)}
+  .nav{display:flex;gap:10px;margin-top:8px}
+  .btn{flex:1;font:inherit;font-weight:700;padding:14px;border-radius:12px;border:0;cursor:pointer;background:var(--gold);color:var(--navy)}
+  .btn.alt{background:#fff;border:1px solid #cfc8b8;color:var(--ink);flex:0 0 100px}
+  .btn:disabled{opacity:.6}
+  .big{display:grid;gap:12px;margin-top:10px}
+  .big button{font:inherit;font-size:20px;font-weight:700;padding:20px;border-radius:14px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+  .big button:hover{background:var(--navy);color:#fff}
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}
+  .consent input{margin-top:4px;width:20px;height:20px;flex:0 0 auto}
+  .banner{background:#fdecea;color:var(--err);padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:14px}
+  footer{max-width:640px;margin:0 auto;padding:0 16px 30px;font-size:12px;color:var(--muted);text-align:center}
+  .hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+  .powered-by{display:flex;align-items:center;gap:7px;margin:4px 0 0}
+  .powered-by .pb-label{font-size:.72rem;color:#b9c6d1;letter-spacing:.02em}
+  .kw-mark{display:inline-flex;align-items:baseline;gap:3px;font-family:"Poppins",-apple-system,"Segoe UI",sans-serif;line-height:1}
+  .kw-bar{display:inline-block;width:3px;height:10px;background:#B40101;margin-right:2px;align-self:center}
+  .kw-mark .kw{font-weight:700;font-size:.82rem;color:var(--gold)}
+  .kw-mark .kw-cary{font-weight:700;font-size:.6rem;letter-spacing:.04em;color:#dce6ee}
+  .powered-by{white-space:nowrap}
+  @media(max-width:520px){
+    header{flex-wrap:wrap}
+    header>div:first-child{flex:1 1 100%;order:2}
+    header>div:last-child{flex:1 1 100%;order:1;justify-content:space-between}
+    header img{height:52px}
+  }
+  footer .powered-by{justify-content:center;margin:0 0 10px}
+  footer .powered-by .pb-label{color:var(--muted)}
+  footer .kw-mark .kw,footer .kw-mark .kw-cary{color:#828282}
+  footer .edhg{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:2px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="eyebrow">El Dorado Home Group</div>
+    <h1 id="hdrTitle">Buyer Intake</h1>
+    <div class="powered-by"><span class="pb-label" id="pbLabel">Powered by</span><span class="kw-mark"><span class="kw-bar"></span><span class="kw">kw</span><span class="kw-cary">CARY</span></span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="lang" id="langBar" role="group" aria-label="Language / Idioma">
+      <button type="button" data-l="en">EN</button><button type="button" data-l="es">ES</button>
+    </div>
+    <img src="el_dorado_logo.png" alt="El Dorado Home Group">
+  </div>
+</header>
+
+<main>
+  <!-- language chooser -->
+  <section id="chooser" class="card">
+    <h2>Welcome / Bienvenido</h2>
+    <p class="sub">Choose your language<br>Elige tu idioma</p>
+    <div class="big">
+      <button type="button" data-l="en">English</button>
+      <button type="button" data-l="es">Español</button>
+    </div>
+  </section>
+
+  <!-- form -->
+  <form id="form" class="hide" novalidate autocomplete="on">
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="stepname" id="stepName"></div>
+    <div id="banner" class="banner hide"></div>
+    <div class="card" id="stepBox"></div>
+    <div class="hp"><label>Leave this empty <input type="text" name="website" id="hp" tabindex="-1" autocomplete="off"></label></div>
+    <div class="nav">
+      <button type="button" class="btn alt" id="backBtn"></button>
+      <button type="button" class="btn" id="nextBtn"></button>
+    </div>
+  </form>
+
+  <section id="done" class="card hide">
+    <h2 id="doneTitle"></h2>
+    <p id="doneBody"></p>
+  </section>
+</main>
+
+<footer id="foot">
+  <div class="edhg">El Dorado Home Group</div>
+  <div class="powered-by"><span class="pb-label" id="pbLabel2">Powered by</span><span class="kw-mark"><span class="kw-bar"></span><span class="kw">kw</span><span class="kw-cary">CARY</span></span></div>
+  Francisco Rodriguez &amp; Maria Rodriguez, Keller Williams Realty Cary · 525 New Waverly Place, Cary, NC 27518<br>
+  <span id="footLine"></span>
+</footer>
+
+<script>
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwP4ATB39VLK9LfQREHmQg-PJ05EAZKE2zVHcpDVOpaWQX9B3ETmM7rN_Y0X-ebj5WV/exec';
+
+/* ---------- strings ---------- */
+const S = {
+ en:{
+  hdr:'Buyer Intake', powered:'Powered by', back:'Back', next:'Next', submit:'Submit', sending:'Sending...',
+  step:'Step {n} of {t}', steps:['About you','Your situation','Your wish list'],
+  yes:'Yes', no:'No', required:'This one is required.', badEmail:'Please enter a valid email.',
+  fixBanner:'Please fix the highlighted questions.', failBanner:'Something went wrong sending this. Please try again or call us.',
+  doneTitle:'Thank you!',
+  doneBody:'We got your information. Maria or Freddy will reach out to you soon to talk about next steps. If you need us sooner, call or text Freddy at (919) 426-7984 or Maria at (919) 671-5108.',
+  foot:'Each office is independently owned and operated. Equal Housing Opportunity.',
+  consent:'Yes, it is OK for Francisco Rodriguez and Maria Rodriguez of Keller Williams Realty Cary to text me about my home search, including with an automated system. Consent is not required to buy or sell a home. Message and data rates may apply. Reply STOP to opt out.',
+  other:'Other', otherPh:'Please tell us',
+ },
+ es:{
+  hdr:'Formulario para compradores', powered:'Con el respaldo de', back:'Atrás', next:'Siguiente', submit:'Enviar', sending:'Enviando...',
+  step:'Paso {n} de {t}', steps:['Sobre ti','Tu situación','Tu lista de deseos'],
+  yes:'Sí', no:'No', required:'Esta pregunta es obligatoria.', badEmail:'Por favor escribe un correo válido.',
+  fixBanner:'Por favor revisa las preguntas marcadas.', failBanner:'Algo salió mal al enviar. Inténtalo de nuevo o llámanos.',
+  doneTitle:'¡Gracias!',
+  doneBody:'Recibimos tu información. Maria o Freddy se comunicarán contigo pronto para hablar de los siguientes pasos. Si nos necesitas antes, llama o escribe a Freddy al (919) 426-7984 o a Maria al (919) 671-5108.',
+  foot:'Cada oficina es de propiedad y operación independiente. Igualdad de oportunidades de vivienda.',
+  consent:'Sí, está bien que Francisco Rodriguez y Maria Rodriguez de Keller Williams Realty Cary me envíen mensajes de texto sobre mi búsqueda de casa, incluso con un sistema automático. No es necesario dar este consentimiento para comprar o vender una casa. Pueden aplicar tarifas de mensajes y datos. Responde STOP para dejar de recibirlos.',
+  other:'Otro', otherPh:'Cuéntanos',
+ }
+};
+
+/* ---------- questions ----------
+   type: text|tel|email|date|area|radio|check ; opts = [value, {en,es}] (value is what is saved, always English)
+   showIf: [fieldId, value or [values]] */
+const O = (v,en,es)=>[v,{en,es}];
+const YN = [O('Yes','Yes','Sí'),O('No','No','No')];
+const STEPS = [
+ [ // 1 about you
+  {id:'fullName',t:'text',req:1,ac:'name',q:{en:'Full name',es:'Nombre completo (como aparece en tu identificación oficial)'}},
+  {id:'phone',t:'tel',req:1,ac:'tel',q:{en:'Phone number',es:'Número de teléfono'}},
+  {id:'email',t:'email',req:1,ac:'email',q:{en:'Email',es:'Correo electrónico'}},
+  {id:'currentAddress',t:'text',req:1,ac:'street-address',q:{en:'Current address',es:'Dirección actual'}},
+  {id:'birthday',t:'date',q:{en:'When is your birthday?',es:'¿Cuándo es tu cumpleaños?'},h:{en:'Optional. We like to send a card.',es:'Opcional. Nos gusta enviar una tarjeta.'}},
+  {id:'instagram',t:'text',q:{en:'Instagram handle',es:'Handle en Instagram'},h:{en:'Optional',es:'Opcional'}},
+  {id:'contactMethod',t:'radio',req:1,opts:[O('Phone call','Phone call','Llamada'),O('Text','Text','Texto'),O('Email','Email','Correo')],q:{en:'How do you like to communicate?',es:'¿Cómo te gusta comunicarte?'}},
+  {id:'bestTimes',t:'text',req:1,q:{en:'What times are best to get in touch?',es:'¿A qué horas es mejor comunicarnos contigo?'}},
+  {id:'howHeard',t:'text',req:1,q:{en:'Who referred you, or how did you hear about us (Maria and Francisco "Freddy")?',es:'¿Quién te refirió o cómo escuchaste de nosotros (Maria y Francisco "Freddy")?'}},
+  {id:'coBuyer',t:'radio',req:1,opts:YN,q:{en:'Is there someone else buying the property with you?',es:'¿Hay alguien más que participará contigo en la compra?'}},
+  {id:'coBuyerDetails',t:'area',req:1,showIf:['coBuyer','Yes'],q:{en:"That person's full name, phone number, email address, and your relationship to them",es:'Nombre completo, teléfono y correo electrónico de esa persona, y tu relación con él/ella'}},
+  {id:'hasAgentAgreement',t:'radio',req:1,opts:YN,q:{en:'Have you signed a buyer representation agreement with another agent?',es:'¿Has firmado un acuerdo de representación de comprador con otro agente?'}},
+  {id:'agentInfo',t:'text',showIf:['hasAgentAgreement','Yes'],q:{en:"Agent's name and brokerage",es:'Nombre del agente y su corredora'},h:{en:'Optional',es:'Opcional'}},
+ ],
+ [ // 2 situation
+  {id:'whyMoving',t:'text',req:1,q:{en:'Out of curiosity, why are you looking to move?',es:'Por curiosidad, ¿por qué quieres mudarte?'}},
+  {id:'inArea',t:'radio',req:1,opts:YN,q:{en:'Do you already live in the area where you want to buy?',es:'¿Ya vives en el área donde deseas comprar?'}},
+  {id:'firstTime',t:'radio',req:1,opts:YN,q:{en:'Is this your first time buying a home?',es:'¿Es esta tu primera vez comprando una casa?'}},
+  {id:'financing',t:'radio',req:1,stack:1,opts:[O('Mortgage','Mortgage','Hipoteca (préstamo)'),O('Cash','Cash','Pagaré en efectivo'),O('Other','Other','Otro método de compra')],q:{en:'How will you be financing the purchase?',es:'¿Cómo vas a financiar la compra?'}},
+  {id:'preApproval',t:'radio',req:1,stack:1,showIf:['financing',['Mortgage','Other']],opts:[O('Yes','Yes, I am pre-approved','Sí, ya estoy preaprobado(a)'),O('No, have a lender','No, but I have a lender I want to work with','No, pero tengo un prestamista con quien quiero trabajar'),O('No, need a lender','No, connect me with your preferred lenders','No, conéctenme con sus prestamistas recomendados')],q:{en:'Have you been pre-approved?',es:'¿Has sido preaprobado(a)?'}},
+  {id:'preApprovalDetails',t:'text',showIf:['preApproval','Yes'],q:{en:'What amount are you pre-approved for, and what will your down payment be?',es:'¿Por qué monto estás preaprobado(a) y de cuánto será tu enganche (pago inicial)?'}},
+  {id:'rentOrOwn',t:'radio',req:1,opts:[O('Rent','Rent','Rento'),O('Own','Own','Soy propietario(a)')],q:{en:'Do you currently rent or own?',es:'¿Actualmente rentas o eres propietario(a)?'}},
+  {id:'needToSell',t:'radio',req:1,showIf:['rentOrOwn','Own'],opts:YN,q:{en:'Do you need to sell your current property?',es:'¿Necesitas vender tu propiedad actual?'}},
+  {id:'listingAgreement',t:'radio',showIf:['needToSell','Yes'],opts:YN,q:{en:'Have you signed a listing agreement with an agent to sell it?',es:'¿Ya firmaste un contrato de venta con un agente?'}},
+  {id:'leaseEnd',t:'text',showIf:['rentOrOwn','Rent'],q:{en:'When is your lease up?',es:'¿Cuándo termina tu contrato de arrendamiento?'}},
+  {id:'timeline',t:'radio',req:1,stack:1,opts:[O('As soon as possible','As soon as possible','Lo antes posible'),O('1-3 months','In the next 1 to 3 months','En los próximos 1 a 3 meses'),O('3-6 months','In 3 to 6 months','En 3 a 6 meses'),O('6-12 months','In 6 to 12 months','En 6 a 12 meses'),O('More than a year','More than a year','Más de un año'),O('Just exploring','No rush, just exploring','Sin prisa, solo estoy explorando')],q:{en:'When do you need to be in your new home?',es:'¿Cuándo necesitas estar en tu nueva casa?'}},
+ ],
+ [ // 3 wish list
+  {id:'propertyTypes',t:'check',req:1,stack:1,opts:[O('Detached single family home','Detached single family home','Casa unifamiliar'),O('Townhouse','Townhouse','Townhouse'),O('New construction','New construction','Construcción nueva'),O('Investment property','Investment property','Propiedad de inversión'),O('Land','Land','Terreno'),O('Complex/Estate','Complex / Estate','Complejo / Finca')],q:{en:'What do you want to buy?',es:'¿Qué quieres comprar?'},h:{en:'Pick all that apply',es:'Elige todas las que apliquen'}},
+  {id:'where',t:'area',req:1,q:{en:'Where do you want to buy?',es:'¿Dónde quieres comprar?'},h:{en:'Cities, school districts, and/or specific points of interest',es:'Ciudades, distritos escolares y/o puntos de interés específicos'}},
+  {id:'priceRange',t:'text',req:1,q:{en:'What price range or monthly payment are you comfortable with?',es:'¿Cuál es tu rango de precio o pago mensual cómodo?'}},
+  {id:'features',t:'area',q:{en:'Desired features and/or amenities (if any)',es:'Características y/o comodidades deseadas (si hay alguna)'},h:{en:'Example: fireplace, 2-car garage, pool',es:'Ejemplo: chimenea, garaje para dos autos, piscina'}},
+  {id:'condition',t:'radio',req:1,stack:1,opts:[O('Move-in ready','Move-in ready resale','Reventa lista para mudarse'),O('New construction','New construction','Construcción nueva'),O('Needs work','Willing to do some work','Dispuesto(a) a hacerle arreglos'),O('Open to either','Open to anything','Abierto(a) a cualquiera')],q:{en:'Do you want a home in move-in condition, or are you willing to do some work on it?',es:'¿Quieres una casa lista para mudarte o estás dispuesto(a) a hacerle algunos arreglos?'}},
+  {id:'mustHaves',t:'area',req:1,q:{en:'Your top 3 must-haves',es:'Tus 3 características indispensables'},h:{en:"You won't consider a house without these three things",es:'No considerarías ver una casa que no tenga estos tres elementos'}},
+  {id:'anythingElse',t:'area',q:{en:'Anything else you want us to know about your goals?',es:'¿Hay algo más que quieras compartir sobre tus objetivos?'},h:{en:'Optional',es:'Opcional'}},
+ ]
+];
+
+/* ---------- state ---------- */
+let lang = 'en', step = 0;
+const ans = {};          // id -> string (check = array)
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const source = (params.get('s') || '').slice(0,80);
+const L = k => S[lang][k];
+const T = o => (o && (o[lang] || o.en)) || '';
+
+function setLang(l){
+  lang = l; try{ localStorage.setItem('edhgIntakeLang', l);}catch(e){}
+  document.documentElement.lang = l;
+  $('hdrTitle').textContent = L('hdr');
+  document.querySelectorAll('#langBar button').forEach(b=>b.classList.toggle('on', b.dataset.l===l));
+  $('backBtn').textContent = L('back');
+  $('footLine').textContent = L('foot');
+  $('pbLabel').textContent = $('pbLabel2').textContent = L('powered');
+  if(!$('form').classList.contains('hide')) render();
+  if(!$('done').classList.contains('hide')) showDone();
+}
+
+function visible(f){
+  if(!f.showIf) return true;
+  const v = ans[f.showIf[0]], need = f.showIf[1];
+  return Array.isArray(need) ? need.includes(v) : v === need;
+}
+
+/* ---------- render ---------- */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function fieldHTML(f){
+  const req = f.req ? ' <span class="req">*</span>' : '';
+  const hint = f.h ? `<span class="hint">${esc(T(f.h))}</span>` : '';
+  let ctl = '';
+  const val = ans[f.id] ?? '';
+  if(f.t==='text'||f.t==='tel'||f.t==='email'||f.t==='date'){
+    ctl = `<input type="${f.t}" id="in_${f.id}" name="${f.id}" value="${esc(val)}"${f.ac?` autocomplete="${f.ac}"`:''}>`;
+  } else if(f.t==='area'){
+    ctl = `<textarea id="in_${f.id}" name="${f.id}">${esc(val)}</textarea>`;
+  } else {
+    const type = f.t==='radio' ? 'radio' : 'checkbox';
+    ctl = `<div class="opts${f.stack?' stack':''}">` + f.opts.map(([v,lab],i)=>{
+      const on = f.t==='radio' ? val===v : (Array.isArray(val)&&val.includes(v));
+      return `<label class="opt"><input type="${type}" name="${f.id}" value="${esc(v)}"${on?' checked':''}><span>${esc(T(lab))}</span></label>`;
+    }).join('') + '</div>';
+  }
+  const sub = f.showIf ? ' sub-f' : '';
+  return `<div class="f${sub}" data-id="${f.id}"><label class="q" for="in_${f.id}">${esc(T(f.q))}${req}${hint}</label>${ctl}<div class="err hide"></div></div>`;
+}
+
+function render(){
+  const fields = STEPS[step].filter(visible);
+  let html = `<h2>${esc(L('steps')[step])}</h2>` + fields.map(fieldHTML).join('');
+  if(step===STEPS.length-1){
+    html += `<label class="consent"><input type="checkbox" id="consent"${ans.consentToText==='Yes'?' checked':''}><span>${esc(L('consent'))}</span></label>`;
+  }
+  $('stepBox').innerHTML = html;
+  $('stepName').textContent = L('step').replace('{n}',step+1).replace('{t}',STEPS.length);
+  $('barFill').style.width = ((step+1)/STEPS.length*100)+'%';
+  $('nextBtn').textContent = step===STEPS.length-1 ? L('submit') : L('next');
+  $('backBtn').style.visibility = step===0 ? 'hidden' : 'visible';
+  $('banner').classList.add('hide');
+}
+
+/* read current step inputs into ans; re-render when a conditional parent changes */
+function collect(){
+  STEPS[step].forEach(f=>{
+    if(f.t==='check'){
+      ans[f.id] = [...document.querySelectorAll(`input[name="${f.id}"]:checked`)].map(i=>i.value);
+    } else if(f.t==='radio'){
+      const c = document.querySelector(`input[name="${f.id}"]:checked`);
+      if(c) ans[f.id]=c.value;
+    } else {
+      const el = $('in_'+f.id); if(el) ans[f.id]=el.value.trim();
+    }
+  });
+  const c = $('consent'); if(c) ans.consentToText = c.checked ? 'Yes' : 'No';
+}
+
+$('stepBox').addEventListener('change', e=>{
+  const name = e.target.name;
+  collect();
+  const parents = new Set(STEPS[step].filter(f=>f.showIf).map(f=>f.showIf[0]));
+  if(parents.has(name)){
+    // clear answers of hidden dependents
+    STEPS[step].forEach(f=>{ if(f.showIf && !visible(f)) delete ans[f.id]; });
+    render();
+  }
+});
+
+function validate(){
+  collect();
+  let ok = true, first = null;
+  STEPS[step].filter(visible).forEach(f=>{
+    const box = document.querySelector(`.f[data-id="${f.id}"]`), err = box.querySelector('.err');
+    let msg = '';
+    const v = ans[f.id];
+    const empty = f.t==='check' ? !(v&&v.length) : !v;
+    if(f.req && empty) msg = L('required');
+    else if(f.t==='email' && v && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) msg = L('badEmail');
+    box.classList.toggle('invalid', !!msg);
+    err.textContent = msg; err.classList.toggle('hide', !msg);
+    if(msg){ ok=false; first = first || box; }
+  });
+  if(!ok){
+    $('banner').textContent = L('fixBanner'); $('banner').classList.remove('hide');
+    first.scrollIntoView({behavior:'smooth',block:'center'});
+  } else $('banner').classList.add('hide');
+  return ok;
+}
+
+$('nextBtn').addEventListener('click', ()=>{
+  if(!validate()) return;
+  if(step < STEPS.length-1){ step++; render(); window.scrollTo(0,0); }
+  else submit();
+});
+$('backBtn').addEventListener('click', ()=>{ collect(); if(step>0){ step--; render(); window.scrollTo(0,0);} });
+
+/* ---------- submit ---------- */
+async function submit(){
+  if($('hp').value) { showDone(); return; }   // bots
+  const btn = $('nextBtn'); btn.disabled = true; btn.textContent = L('sending');
+  const p = {action:'submitIntake', lang, source, consentToText: ans.consentToText||'No',
+    consentWording: ans.consentToText==='Yes' ? S[lang].consent : ''};
+  Object.keys(ans).forEach(k=>{ if(k!=='consentToText') p[k] = Array.isArray(ans[k]) ? ans[k].join('; ') : ans[k]; });
+  try{
+    await fetch(WEB_APP_URL, {method:'POST', mode:'no-cors', body: JSON.stringify(p)});  // no content-type header on purpose
+    showDone();
+  }catch(e){
+    btn.disabled = false; btn.textContent = L('submit');
+    $('banner').textContent = L('failBanner'); $('banner').classList.remove('hide');
+  }
+}
+function showDone(){
+  $('form').classList.add('hide'); $('chooser').classList.add('hide'); $('done').classList.remove('hide');
+  $('doneTitle').textContent = L('doneTitle'); $('doneBody').textContent = L('doneBody');
+  window.scrollTo(0,0);
+}
+
+/* ---------- boot ---------- */
+function start(l){
+  setLang(l); $('chooser').classList.add('hide'); $('form').classList.remove('hide'); step=0; render();
+}
+document.querySelectorAll('#chooser button').forEach(b=>b.addEventListener('click',()=>start(b.dataset.l)));
+document.querySelectorAll('#langBar button').forEach(b=>b.addEventListener('click',()=>{ if($('form').classList.contains('hide')&&$('done').classList.contains('hide')) { lang=b.dataset.l; setLang(lang);} else { collect(); setLang(b.dataset.l);} }));
+(function(){
+  let pre = params.get('lang');
+  if(pre==='en'||pre==='es'){ start(pre); return; }       // ?lang=es skips the chooser
+  let saved = null; try{ saved = localStorage.getItem('edhgIntakeLang'); }catch(e){}
+  setLang(saved || (/^es/i.test(navigator.language||'') ? 'es' : 'en'));
+  $('langBar').querySelectorAll('button').forEach(b=>b.classList.remove('on'));  // no pre-pick until they choose
+})();
+</script>
+</body>
+</html>
