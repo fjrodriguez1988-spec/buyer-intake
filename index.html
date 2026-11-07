@@ -324,7 +324,11 @@ async function submit(){
     consentWording: ans.consentToText==='Yes' ? S[lang].consent : ''};
   Object.keys(ans).forEach(k=>{ if(k!=='consentToText') p[k] = Array.isArray(ans[k]) ? ans[k].join('; ') : ans[k]; });
   try{
-    await fetch(WEB_APP_URL, {method:'POST', mode:'no-cors', body: JSON.stringify(p)});  // no content-type header on purpose
+    const send = fetch(WEB_APP_URL, {method:'POST', mode:'no-cors', body: JSON.stringify(p)});  // no content-type header on purpose
+    send.catch(()=>{});
+    // Apps Script takes several seconds to write the row and send the texts. A network failure rejects fast,
+    // so wait at most 2.5s: a quick failure shows the error, otherwise show the thank you right away.
+    await Promise.race([send, new Promise(r=>setTimeout(r,2500))]);
     showDone();
   }catch(e){
     btn.disabled = false; btn.textContent = L('submit');
