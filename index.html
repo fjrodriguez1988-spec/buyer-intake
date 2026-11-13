@@ -120,7 +120,7 @@
 <footer id="foot">
   <div class="edhg">El Dorado Home Group</div>
   <div class="powered-by"><span class="pb-label" id="pbLabel2">Powered by</span><span class="kw-mark"><span class="kw-bar"></span><span class="kw">kw</span><span class="kw-cary">CARY</span></span></div>
-  Francisco Rodriguez &amp; Maria Rodriguez, Keller Williams Realty Cary · 525 New Waverly Place, Cary, NC 27518<br>
+  Francisco (Freddy) Rodriguez &amp; Maria Rodriguez, Keller Williams Realty Cary · 525 New Waverly Place, Cary, NC 27518<br>
   <span id="footLine"></span>
 </footer>
 
@@ -135,9 +135,9 @@ const S = {
   yes:'Yes', no:'No', required:'This one is required.', badEmail:'Please enter a valid email.',
   fixBanner:'Please fix the highlighted questions.', failBanner:'Something went wrong sending this. Please try again or call us.',
   doneTitle:'Thank you!',
-  doneBody:'We got your information. Maria or Freddy will reach out to you soon to talk about next steps. If you need us sooner, call or text Freddy at (919) 426-7984 or Maria at (919) 671-5108.',
+  doneBody:'We got your information. Maria or Francisco (Freddy) will reach out to you soon to talk about next steps. If you need us sooner, call or text Francisco (Freddy) at (919) 426-7984 or Maria at (919) 671-5108.',
   foot:'Each office is independently owned and operated. Equal Housing Opportunity.',
-  consent:'Yes, it is OK for Francisco Rodriguez and Maria Rodriguez of Keller Williams Realty Cary to text me about my home search, including with an automated system. Consent is not required to buy or sell a home. Message and data rates may apply. Reply STOP to opt out.',
+  consent:'Yes, it is OK for Francisco (Freddy) Rodriguez and Maria Rodriguez of Keller Williams Realty Cary to text me about my home search, including with an automated system. Consent is not required to buy or sell a home. Message and data rates may apply. Reply STOP to opt out.',
   other:'Other', otherPh:'Please tell us',
  },
  es:{
@@ -146,9 +146,9 @@ const S = {
   yes:'Sí', no:'No', required:'Esta pregunta es obligatoria.', badEmail:'Por favor escribe un correo válido.',
   fixBanner:'Por favor revisa las preguntas marcadas.', failBanner:'Algo salió mal al enviar. Inténtalo de nuevo o llámanos.',
   doneTitle:'¡Gracias!',
-  doneBody:'Recibimos tu información. Maria o Freddy se comunicarán contigo pronto para hablar de los siguientes pasos. Si nos necesitas antes, llama o escribe a Freddy al (919) 426-7984 o a Maria al (919) 671-5108.',
+  doneBody:'Recibimos tu información. Maria o Francisco (Freddy) se comunicarán contigo pronto para hablar de los siguientes pasos. Si nos necesitas antes, llama o escribe a Francisco (Freddy) al (919) 426-7984 o a Maria al (919) 671-5108.',
   foot:'Cada oficina es de propiedad y operación independiente. Igualdad de oportunidades de vivienda.',
-  consent:'Sí, está bien que Francisco Rodriguez y Maria Rodriguez de Keller Williams Realty Cary me envíen mensajes de texto sobre mi búsqueda de casa, incluso con un sistema automático. No es necesario dar este consentimiento para comprar o vender una casa. Pueden aplicar tarifas de mensajes y datos. Responde STOP para dejar de recibirlos.',
+  consent:'Sí, está bien que Francisco (Freddy) Rodriguez y Maria Rodriguez de Keller Williams Realty Cary me envíen mensajes de texto sobre mi búsqueda de casa, incluso con un sistema automático. No es necesario dar este consentimiento para comprar o vender una casa. Pueden aplicar tarifas de mensajes y datos. Responde STOP para dejar de recibirlos.',
   other:'Otro', otherPh:'Cuéntanos',
  }
 };
@@ -168,7 +168,7 @@ const STEPS = [
   {id:'instagram',t:'text',q:{en:'Instagram handle',es:'Handle en Instagram'},h:{en:'Optional',es:'Opcional'}},
   {id:'contactMethod',t:'radio',req:1,opts:[O('Phone call','Phone call','Llamada'),O('Text','Text','Texto'),O('Email','Email','Correo')],q:{en:'How do you like to communicate?',es:'¿Cómo te gusta comunicarte?'}},
   {id:'bestTimes',t:'text',req:1,q:{en:'What times are best to get in touch?',es:'¿A qué horas es mejor comunicarnos contigo?'}},
-  {id:'howHeard',t:'text',req:1,q:{en:'Who referred you, or how did you hear about us (Maria and Francisco "Freddy")?',es:'¿Quién te refirió o cómo escuchaste de nosotros (Maria y Francisco "Freddy")?'}},
+  {id:'howHeard',t:'text',req:1,q:{en:'Who referred you, or how did you hear about us (Maria and Francisco (Freddy))?',es:'¿Quién te refirió o cómo escuchaste de nosotros (Maria y Francisco (Freddy))?'}},
   {id:'coBuyer',t:'radio',req:1,opts:YN,q:{en:'Is there someone else buying the property with you?',es:'¿Hay alguien más que participará contigo en la compra?'}},
   {id:'coBuyerDetails',t:'area',req:1,showIf:['coBuyer','Yes'],q:{en:"That person's full name, phone number, email address, and your relationship to them",es:'Nombre completo, teléfono y correo electrónico de esa persona, y tu relación con él/ella'}},
   {id:'hasAgentAgreement',t:'radio',req:1,opts:YN,q:{en:'Have you signed a buyer representation agreement with another agent?',es:'¿Has firmado un acuerdo de representación de comprador con otro agente?'}},
